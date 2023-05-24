@@ -20,7 +20,7 @@ const App = () => {
   const filterTodoItems = useSelector((state) => state.filterTodo);
   const dispatch = useDispatch();
   const [todoItem, setTodoItem] = useState("");
-  const [updateTodoId, setUpdateTodoId] = useState(null);
+  const [updateTodoId, setUpdateTodoId] = useState("");
   const [updateTodoTitle, setUpdateTodoTitle] = useState("");
 
   const listSelected = [
@@ -40,7 +40,6 @@ const App = () => {
       );
       setTodoItem("");
     }
-    console.log(todos);
   };
 
   const handleUpdateTodo = (todoId) => {
@@ -53,7 +52,7 @@ const App = () => {
   const handleSaveUpdateTodo = () => {
     if (updateTodoTitle !== "") {
       dispatch(updateTodo(updateTodoId, updateTodoTitle));
-      setUpdateTodoId(null);
+      setUpdateTodoId("");
       setUpdateTodoTitle("");
     }
   };
@@ -77,13 +76,13 @@ const App = () => {
     return todos;
   };
 
-  console.log(filterTodoItems);
-
   return (
     <>
       <MainLayout>
         <ContentLayout>
-          <h1 className="font-semibold text-3xl">What's the plan for today?</h1>
+          <h1 className="font-semibold text-[19px] text-center md:text-start md:text-3xl">
+            What's the plan for today?
+          </h1>
           <InputTodo
             value={todoItem}
             onChange={(e) => setTodoItem(e.target.value)}
@@ -132,15 +131,13 @@ const App = () => {
                     <>
                       <MdModeEditOutline
                         onClick={() => handleUpdateTodo(el.id)}
-                        size={30}
-                        className="cursor-pointer text-zinc-700 hover:scale-105 hover:text-green-600"
+                        className="text-xl md:text-2xl cursor-pointer text-zinc-700 hover:scale-105 hover:text-green-600"
                       />
                     </>
                   )}
                   <MdDeleteForever
                     onClick={() => dispatch(deleteTodo(el.id))}
-                    size={30}
-                    className="cursor-pointer text-zinc-700 hover:scale-105 hover:text-red-600"
+                    className="text-xl md:text-2xl cursor-pointer text-zinc-700 hover:scale-105 hover:text-red-600"
                   />
                 </>
               )}
