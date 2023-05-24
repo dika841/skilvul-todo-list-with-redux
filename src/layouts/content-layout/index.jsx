@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 
 const ContentLayout = ({ children }) => {
   return (
-    <section className="w-full px-9 md:w-[450px] flex flex-col h-full  pt-28 gap-y-6 ">
+    <section className="w-full px-10 md:px-0 md:w-[450px] flex flex-col h-full gap-y-8  pt-28 md:gap-y-6 ">
       {children}
     </section>
   );
