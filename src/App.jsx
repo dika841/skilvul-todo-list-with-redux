@@ -11,15 +11,23 @@ import {
   completeTodo,
   deleteTodo,
   updateTodo,
+  filterTodo,
 } from "./redux/action/todosAction";
 import { useState } from "react";
 
 const App = () => {
   const todos = useSelector((state) => state.todo);
+  const filterTodoItems = useSelector((state) => state.filterTodo);
   const dispatch = useDispatch();
   const [todoItem, setTodoItem] = useState("");
   const [updateTodoId, setUpdateTodoId] = useState(null);
   const [updateTodoTitle, setUpdateTodoTitle] = useState("");
+
+  const listSelected = [
+    { id: 1, filter: "ALL" },
+    { id: 2, filter: "ACTIVE" },
+    { id: 3, filter: "COMPLETED" },
+  ];
 
   const handleAddTodo = () => {
     if (todoItem !== "") {
@@ -54,6 +62,23 @@ const App = () => {
     dispatch(completeTodo(todoId));
   };
 
+  const handleFilterTodo = (filter) => {
+    dispatch(filterTodo(filter));
+  };
+
+  const handleGetTodoFiltered = () => {
+    if (filterTodoItems == "COMPLETED") {
+      return todos.filter((el) => el.completed);
+    }
+
+    if (filterTodoItems == "ACTIVE") {
+      return todos.filter((el) => !el.completed);
+    }
+    return todos;
+  };
+
+  console.log(filterTodoItems);
+
   return (
     <>
       <MainLayout>
@@ -67,18 +92,26 @@ const App = () => {
           </InputTodo>
 
           <div className="flex gap-x-4">
-            <FilteredButton filtered="All" />
-            <FilteredButton filtered="Active" />
-            <FilteredButton filtered="Complete" />
+            {listSelected.map((el) => (
+              <FilteredButton
+                bgActive={
+                  el.filter == filterTodoItems ? "bg-teal-600" : "bg-gray-400"
+                }
+                onClick={() => handleFilterTodo(el.filter)}
+                key={el.id}
+                filtered={el.filter}
+              />
+            ))}
           </div>
 
-          {todos.map((el, idx) => (
+          {handleGetTodoFiltered().map((el, idx) => (
             <Card
               className={`${
-                el.completed ? "line-through" : "none"
+                el.completed ? "line-through decoration-2 " : "none"
               } text-zinc-700 `}
               label={el.title}
               value={el.completed}
+              checked={el.completed}
               key={idx}
               onChange={() => handleCompleteTodo(el.id)}
             >

@@ -2,8 +2,7 @@ export const ADD_TODO = "ADD_TODO";
 export const COMPLETE_TODO = "COMPLETE_TODO";
 export const UPDATE_TODO = "UPDATE_TODO";
 export const DELETE_TODO = "DELETE_TODO";
-export const FILTER_ACTIVETODO = "FILTER_ACTIVETODO";
-export const FILTER_COMPLETETODO = "FILTER_COMPLETETODO";
+export const FILTER_TODO = "FILTER_TODO";
 
 export const addTodo = (todo) => ({
   type: ADD_TODO,
@@ -15,7 +14,7 @@ export const completeTodo = (id) => ({
   payload: id,
 });
 export const updateTodo = (id, newTitle) => ({
-  type: "UPDATE_TODO",
+  type: UPDATE_TODO,
   payload: {
     id: id,
     title: newTitle,
@@ -25,4 +24,9 @@ export const updateTodo = (id, newTitle) => ({
 export const deleteTodo = (id) => ({
   type: DELETE_TODO,
   payload: id,
+});
+
+export const filterTodo = (filter) => ({
+  type: FILTER_TODO,
+  payload: filter,
 });

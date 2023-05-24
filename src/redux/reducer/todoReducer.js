@@ -3,18 +3,18 @@ import {
   DELETE_TODO,
   UPDATE_TODO,
   COMPLETE_TODO,
-  FILTER_ACTIVETODO,
-  FILTER_COMPLETETODO,
+  FILTER_TODO,
 } from "../action/todosAction";
 
 const initialState = {
   todo: [
     {
       id: 1,
-      title: "Makan",
+      title: "Buy Milk",
       completed: false,
     },
   ],
+  filterTodo: "ALL",
 };
 
 const todoReducer = (state = initialState, action) => {
@@ -35,27 +35,22 @@ const todoReducer = (state = initialState, action) => {
         todo: state.todo.map((item) =>
           item.id === action.payload.id
             ? { ...state, title: action.payload.title }
-            : todo
+            : item
         ),
       };
     case COMPLETE_TODO:
       return {
         ...state,
         todo: state.todo.map((item) =>
-          item.id === action.payload ? { ...item, completed: true } : item
+          item.id === action.payload
+            ? { ...item, completed: !item.completed }
+            : item
         ),
       };
-    case FILTER_ACTIVETODO:
+    case FILTER_TODO:
       return {
         ...state,
-        todo: state.todo.map((item) => item),
-      };
-    case FILTER_COMPLETETODO:
-      return {
-        ...state,
-        todo: state.todo.filter((item) =>
-          item.id === action.payload ? { ...item, completed: true } : item
-        ),
+        filterTodo: (state.filterTodo = action.payload),
       };
     default:
       return state;
