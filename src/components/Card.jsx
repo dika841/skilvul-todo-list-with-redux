@@ -3,7 +3,7 @@ const Card = ({ label, children, checked, onChange, className, value }) => {
     <div className="border-2 border-gray-300 px-3 h-16 w-full flex items-center justify-between">
       <div className="flex gap-x-3">
         <input
-          className="w-6 h-6 accent-gray-500"
+          className="w-6 h-6 accent-gray-500 cursor-pointer"
           type="checkbox"
           name="check"
           value={value}
