@@ -107,7 +107,7 @@ const App = () => {
             <Card
               className={`${
                 el.completed ? "line-through decoration-2 " : "none"
-              } text-zinc-700 `}
+              } text-zinc-700 capitalize`}
               label={el.title}
               value={el.completed}
               checked={el.completed}
